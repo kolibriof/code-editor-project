@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as esbuild from "esbuild-wasm";
 import { unpkgPathPlugin } from "../plugins/unpkg-path-plugin";
+import { fetchPlugin } from "../plugins/fetch-plugin";
 
 const MainPage = () => {
   const ref = useRef<any>(null);
@@ -26,7 +27,7 @@ const MainPage = () => {
       },
       bundle: true,
       write: false,
-      plugins: [unpkgPathPlugin(input)],
+      plugins: [unpkgPathPlugin(), fetchPlugin(input)],
     });
 
     setCode(transformed.outputFiles[0].text);
