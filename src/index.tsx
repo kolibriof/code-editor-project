@@ -1,10 +1,7 @@
-import { createRoot } from "react-dom/client";
-import MainPage from "./components/MainPage";
+import ReactDOM from 'react-dom';
+import MainPage from './components/MainPage';
 
-const el = document.getElementById("root");
-const root = createRoot(el!);
-
-const App: React.FC = () => {
+const App = () => {
   return (
     <div>
       <MainPage />
@@ -12,4 +9,4 @@ const App: React.FC = () => {
   );
 };
 
-root.render(<App />);
+ReactDOM.render(<App />, document.querySelector('#root'));
