@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
+import "../styles/code-preview.css"
 
 interface PreviewProps {
-    code: string;
+  code: string;
 }
 
 const html = `
@@ -24,12 +25,18 @@ const html = `
   </html>`
 
 export const Preview: React.FC<PreviewProps> = ({ code }) => {
-    const iRef = useRef<HTMLIFrameElement>(null)
-    useEffect(() => {
-        iRef.current!.srcdoc = html;
-        if (iRef.current?.contentWindow) {
-            iRef.current.contentWindow.postMessage(code, "*")
-        }
-    }, [code])
-    return <iframe srcDoc={html} ref={iRef} sandbox="allow-scripts" title="code-exec" />
+  const iRef = useRef<HTMLIFrameElement>(null)
+  useEffect(() => {
+    iRef.current!.srcdoc = html;
+    if (iRef.current?.contentWindow) {
+      iRef.current.contentWindow.postMessage(code, "*")
+    }
+  }, [code])
+
+  return (
+    <div className="preview-wrapper">
+      <iframe srcDoc={html} ref={iRef} sandbox="allow-scripts" title="code-exec" />
+    </div>
+  )
+
 }

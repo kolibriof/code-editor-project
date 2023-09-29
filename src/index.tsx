@@ -1,10 +1,11 @@
+import 'bulmaswatch/superhero/bulmaswatch.min.css'
 import ReactDOM from 'react-dom';
-import MainPage from './components/MainPage';
+import CodeCell from './components/CodeCell';
 
 const App = () => {
   return (
     <div>
-      <MainPage />
+      <CodeCell />
     </div>
   );
 };

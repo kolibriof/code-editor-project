@@ -54,8 +54,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }
                 editorDidMount={onEditorDidMount}
                 value={initialValue}
                 theme="dark"
-                language="javascript"
-                height="500px"
+                language="typescript"
                 options={{
                     wordWrap: 'on',
                     minimap: { enabled: false },
