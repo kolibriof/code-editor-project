@@ -28,9 +28,11 @@ export const Preview: React.FC<PreviewProps> = ({ code }) => {
   const iRef = useRef<HTMLIFrameElement>(null)
   useEffect(() => {
     iRef.current!.srcdoc = html;
-    if (iRef.current?.contentWindow) {
-      iRef.current.contentWindow.postMessage(code, "*")
-    }
+    setTimeout(() => {
+      if (iRef.current?.contentWindow) {
+        iRef.current.contentWindow.postMessage(code, "*")
+      }
+    }, 50)
   }, [code])
 
   return (
