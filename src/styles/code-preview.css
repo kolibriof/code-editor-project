@@ -19,3 +19,9 @@
   left: 0;
   opacity: 0;
 }
+.preview-error {
+  position: absolute;
+  top: 2vh;
+  right: 5vw;
+  color: red;
+}

@@ -45,7 +45,7 @@ export const Resizable: React.FC<ResizableProp> = ({ direction, children }) => {
                 resizeHandles: ['e'],
                 minConstraints: [windowSize.width * 0.1, Infinity],
                 maxConstraints: [windowSize.width * 0.9, Infinity],
-                onResizeStop: (e, data) => {
+                onResizeStop: (_, data) => {
                     setWidthState(data.size.width)
                 }
             }
