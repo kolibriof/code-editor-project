@@ -1,8 +1,10 @@
 import MDEditor from "@uiw/react-md-editor"
 import { useEffect, useRef } from "react"
 import "../styles/text-editor.css"
-import { useAppDispatch, useAppSelector } from "../slices/helpers/hooks"
-import { setEditingValue, setEditing } from "../slices/textEditorSlice"
+import { useAppDispatch, useAppSelector } from "../state/helpers/hooks"
+import { setEditingValue, setEditing } from "../state/textEditorSlice"
+import React from "react"
+
 
 const TextEditor: React.FC = () => {
     const dispatch = useAppDispatch()

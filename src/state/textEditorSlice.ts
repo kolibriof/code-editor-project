@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-
 interface StateType {
     isEditing: boolean;
     editValue: string;
@@ -10,7 +9,6 @@ const initialState: StateType = {
     isEditing: true,
     editValue: "Hi!"
 }
-
 
 const textEditorSlice = createSlice({
     name: "codeEditor",

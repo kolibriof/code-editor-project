@@ -5,6 +5,8 @@ import prettier from 'prettier';
 import parser from 'prettier/parser-babel';
 import codeShift from "jscodeshift"
 import Highlighter from "monaco-jsx-highlighter";
+import React from "react"
+
 
 interface CodeEditorProps {
     initialValue: string;

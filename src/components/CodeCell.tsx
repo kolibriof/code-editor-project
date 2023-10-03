@@ -3,8 +3,10 @@ import { CodeEditor } from './CodeEditor';
 import { Preview } from './Preview';
 import { bundle } from "../utils"
 import { Resizable } from "../utils/resizable-componets/Resizable";
-import { useAppDispatch, useAppSelector } from "../slices/helpers/hooks";
-import { setCode, setError, setInput } from "../slices/codeCellSlice";
+import { useAppDispatch, useAppSelector } from "../state/helpers/hooks";
+import { setCode, setError, setInput } from "../state/codeCellSlice";
+import React from "react"
+
 
 const CodeCell = () => {
   const { code, input, error } = useAppSelector((store) => store.codeCellSlice)
