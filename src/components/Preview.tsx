@@ -10,25 +10,25 @@ const html = `
   <html>
         <head></head>
         <body>
-        <div id="root"></div>
         <script>
         const handleError = (error) => {
               document.getElementById("root").innerHTML = error;
               document.getElementById("root").style = "color: red; font-size: 20px";
-              console.error(error);
+              console.log(error)
         };
           window.addEventListener("error", (e) => {
-            e.preventDefault();
-            handleError(e.error)
+                e.preventDefault()
+                handleError(e.error)
             })
           window.addEventListener('message', (e)=> {
             try {
               eval(e.data)
             } catch (error) {
-              handleErrror(error);
+              handleError(error);
             }
           }, false)
         </script>
+        <div id="root"></div>
         </body>
   </html>`
 

@@ -1,10 +1,12 @@
 import MDEditor from "@uiw/react-md-editor"
-import { useState, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 import "../styles/text-editor.css"
+import { useAppDispatch, useAppSelector } from "../slices/helpers/hooks"
+import { setEditingValue, setEditing } from "../slices/textEditorSlice"
 
 const TextEditor: React.FC = () => {
-    const [editing, setEditing] = useState<boolean>(true)
-    const [editValue, setEditValue] = useState<string>("")
+    const dispatch = useAppDispatch()
+    const { editValue, isEditing } = useAppSelector((store) => store.textEditorSlice)
     const editorRef = useRef<HTMLDivElement | null>(null)
 
     useEffect(() => {
@@ -12,7 +14,7 @@ const TextEditor: React.FC = () => {
             if (editorRef.current && e.target && editorRef.current.contains(e.target as Node)) {
                 return;
             }
-            setEditing(false)
+            dispatch(setEditing(false))
         }
         document.addEventListener("click", listener, {
             capture: true
@@ -24,17 +26,17 @@ const TextEditor: React.FC = () => {
         }
     }, [])
 
-    if (editing) {
+    if (isEditing) {
         return (
             <div ref={editorRef} className="text-editor">
                 <MDEditor value={editValue} onChange={(e) => {
-                    setEditValue(e!);
+                    dispatch(setEditingValue(e!))
                 }} />
             </div>
         )
     }
     return (
-        <div className="text-editor card" onClick={() => setEditing(true)}>
+        <div className="text-editor card" onClick={() => dispatch(setEditing(true))}>
             <div className="card-content">
                 <MDEditor.Markdown source={editValue} />
             </div>
