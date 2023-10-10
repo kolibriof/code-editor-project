@@ -1,24 +1,23 @@
 import { CellDirection, CellTypes } from "./cell";
 
-
 export interface MoveCellAction {
-    payload: {
-        id: string;
-        direction: CellDirection;
-    }
+	payload: {
+		id: string;
+		direction: CellDirection;
+	};
 }
 export interface DeleteCellAction {
-    payload: string;
+	payload: string;
 }
-export interface InsertCellBeforeAction {
-    payload: {
-        id: string | null;
-        type: CellTypes;
-    }
+export interface InsertCellAfterAction {
+	payload: {
+		id: string | null;
+		type: CellTypes;
+	};
 }
 export interface UpdateCellAction {
-    payload: {
-        id: string;
-        content: string;
-    }
+	payload: {
+		id: string;
+		content: string;
+	};
 }
