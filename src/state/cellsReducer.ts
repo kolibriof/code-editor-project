@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Cell } from "./helpers/cell";
 import { UpdateCellAction, DeleteCellAction, InsertCellBeforeAction, MoveCellAction } from "./helpers/actions"
 
+
 interface CellsState {
     loading: boolean;
     error: string | null;
@@ -37,7 +38,7 @@ const cellsReducer = createSlice({
             const { id, direction } = action.payload;
             const currentIndex = state.order.findIndex(e => e === id)
             const targetIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1
-            if (targetIndex < 0 || targetIndex === state.order.length - 1) {
+            if (targetIndex < 0 || targetIndex === state.order.length) {
                 return;
             }
             state.order[currentIndex] = state.order[targetIndex]

@@ -5,13 +5,16 @@ import TextEditor from './components/TextEditor';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import React from 'react';
+import CellList from './components/CellList';
+import '@fortawesome/fontawesome-free/css/all.min.css'
 
 const App = () => {
   return (
     <Provider store={store}>
       <div>
-        <TextEditor />
+        {/* <TextEditor /> */}
         {/* <CodeCell /> */}
+        <CellList />
       </div>
     </Provider>
   );

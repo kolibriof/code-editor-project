@@ -2,13 +2,18 @@ import MDEditor from "@uiw/react-md-editor"
 import { useEffect, useRef } from "react"
 import "../styles/text-editor.css"
 import { useAppDispatch, useAppSelector } from "../state/helpers/hooks"
-import { setEditingValue, setEditing } from "../state/textEditorSlice"
+import { setEditing } from "../state/textEditorSlice"
 import React from "react"
+import { Cell } from "../state/helpers/cell"
+import { updateCell } from "../state/cellsReducer"
 
+interface TextCellProps {
+    cell: Cell;
+}
 
-const TextEditor: React.FC = () => {
+const TextEditor: React.FC<TextCellProps> = ({ cell }) => {
     const dispatch = useAppDispatch()
-    const { editValue, isEditing } = useAppSelector((store) => store.textEditorSlice)
+    const { isEditing } = useAppSelector((store) => store.textEditorSlice)
     const editorRef = useRef<HTMLDivElement | null>(null)
 
     useEffect(() => {
@@ -31,8 +36,8 @@ const TextEditor: React.FC = () => {
     if (isEditing) {
         return (
             <div ref={editorRef} className="text-editor">
-                <MDEditor value={editValue} onChange={(e) => {
-                    dispatch(setEditingValue(e!))
+                <MDEditor value={cell.content} onChange={(e) => {
+                    dispatch(updateCell({ id: cell.id, content: e! }))
                 }} />
             </div>
         )
@@ -40,7 +45,7 @@ const TextEditor: React.FC = () => {
     return (
         <div className="text-editor card" onClick={() => dispatch(setEditing(true))}>
             <div className="card-content">
-                <MDEditor.Markdown source={editValue} />
+                <MDEditor.Markdown source={cell.content || "Click here to start editing"} />
             </div>
         </div>
     )

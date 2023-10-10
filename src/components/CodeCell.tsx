@@ -6,13 +6,18 @@ import { Resizable } from "../utils/resizable-componets/Resizable";
 import { useAppDispatch, useAppSelector } from "../state/helpers/hooks";
 import { setCode, setError, setInput } from "../state/codeCellSlice";
 import React from "react"
+import { Cell } from "../state/helpers/cell";
+import { updateCell } from "../state/cellsReducer";
 
+interface CodeCellProps {
+  cell: Cell;
+}
 
-const CodeCell = () => {
-  const { code, input, error } = useAppSelector((store) => store.codeCellSlice)
+const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
+  const { code, error } = useAppSelector(store => store.codeCellSlice)
   const dispatch = useAppDispatch()
   const bundleCode = async () => {
-    const output = await bundle(input)
+    const output = await bundle(cell.content!)
     setCode(output.code)
     dispatch(setCode(output.code))
     dispatch(setError(output.error))
@@ -24,13 +29,13 @@ const CodeCell = () => {
     return () => {
       clearTimeout(timer)
     }
-  }, [input])
+  }, [cell.content!])
   return (
     <>
       <Resizable direction="y">
         <div style={{ height: "100%", display: "flex", flexDirection: "row", alignItems: 'center' }}>
           <Resizable direction="x">
-            <CodeEditor initialValue={"console.log('Your code here..')"} onChange={(value) => dispatch(setInput(value))} />
+            <CodeEditor initialValue={cell.content!} onChange={(value) => dispatch(updateCell({ id: cell.id, content: value }))} />
           </Resizable>
           <Preview code={code} status={error} />
         </div>

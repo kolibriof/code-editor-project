@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type CellTypes = 'code' | 'text';
 export type CellDirection = 'up' | 'down';
 

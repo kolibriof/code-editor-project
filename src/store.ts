@@ -1,8 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import codeCellSlice from "./state/codeCellSlice";
 import textEditorSlice from "./state/textEditorSlice";
-import cellsReducer, { insertCellBefore, moveCell } from "./state/cellsReducer";
-import { useAppDispatch } from "./state/helpers/hooks";
+import cellsReducer, { insertCellBefore } from "./state/cellsReducer";
 
 export const store = configureStore({
     reducer: {
@@ -12,8 +11,8 @@ export const store = configureStore({
     },
 })
 
-
-
+store.dispatch(insertCellBefore({ id: null, type: "code" }))
+store.dispatch(insertCellBefore({ id: null, type: "text" }))
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
