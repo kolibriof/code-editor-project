@@ -13,7 +13,7 @@ const initialState: BundlesState = {};
 
 export const bundleCode = createAsyncThunk(
 	"bundle/bundleCode",
-	async (id) => {},
+	async (id: string) => {},
 );
 
 const bundleReducer = createSlice({
@@ -34,14 +34,14 @@ const bundleReducer = createSlice({
 				state[action.payload.cellID] = {
 					loading: false,
 					code: action.payload.bundle.code,
-					error: "",
+					error: action.payload.bundle.error,
 				};
 			})
-			.addCase(bundleCode.rejected, (state, action: BundleStartAction) => {
+			.addCase(bundleCode.rejected, (state, action: BundleCompleteAction) => {
 				state[action.payload.cellID] = {
 					loading: false,
 					code: "",
-					error: "There was some error!",
+					error: action.payload.bundle.error,
 				};
 			});
 	},

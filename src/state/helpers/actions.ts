@@ -33,7 +33,7 @@ export interface BundleCompleteAction {
 		cellID: string;
 		bundle: {
 			code: string;
-			err: string;
+			error: string;
 		};
 	};
 }
