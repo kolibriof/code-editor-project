@@ -21,3 +21,19 @@ export interface UpdateCellAction {
 		content: string;
 	};
 }
+
+export interface BundleStartAction {
+	payload: {
+		cellID: string;
+	};
+}
+
+export interface BundleCompleteAction {
+	payload: {
+		cellID: string;
+		bundle: {
+			code: string;
+			err: string;
+		};
+	};
+}

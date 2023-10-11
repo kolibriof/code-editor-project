@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import codeCellSlice from "./state/codeCellSlice";
 import textEditorSlice from "./state/textEditorSlice";
 import cellsReducer, { insertCellAfter } from "./state/cellsReducer";
+import bundleReducer from "./state/bundlesReducer";
 
 export const store = configureStore({
 	reducer: {
 		codeCellSlice: codeCellSlice,
 		textEditorSlice: textEditorSlice,
 		cell: cellsReducer,
+		bundle: bundleReducer,
 	},
 });
 
