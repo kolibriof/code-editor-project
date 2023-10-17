@@ -31,9 +31,8 @@ export interface BundleStartAction {
 export interface BundleCompleteAction {
 	payload: {
 		cellID: string;
-		bundle: {
-			code: string;
-			error: string;
-		};
+
+		code: string;
+		error: string;
 	};
 }

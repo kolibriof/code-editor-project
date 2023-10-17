@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { BundleCompleteAction, BundleStartAction } from "./helpers/actions";
+import { bundle } from "../utils/index";
 
 interface BundlesState {
 	[key: string]: {
@@ -9,11 +10,19 @@ interface BundlesState {
 	};
 }
 
+interface BundleCodeProp {
+	cellID: string;
+	input: string;
+}
+
 const initialState: BundlesState = {};
 
 export const bundleCode = createAsyncThunk(
 	"bundle/bundleCode",
-	async (id: string) => {},
+	async (prop: BundleCodeProp) => {
+		const result = await bundle(prop.input, prop.cellID);
+		return result;
+	},
 );
 
 const bundleReducer = createSlice({
@@ -24,25 +33,31 @@ const bundleReducer = createSlice({
 		///@ts-ignore
 		builder
 			.addCase(bundleCode.pending, (state, action: BundleStartAction) => {
-				state[action.payload.cellID] = {
-					loading: true,
-					code: "",
-					error: "",
-				};
+				if (action.payload) {
+					state[action.payload.cellID] = {
+						loading: true,
+						code: "",
+						error: "",
+					};
+				}
 			})
 			.addCase(bundleCode.fulfilled, (state, action: BundleCompleteAction) => {
-				state[action.payload.cellID] = {
-					loading: false,
-					code: action.payload.bundle.code,
-					error: action.payload.bundle.error,
-				};
+				if (action.payload) {
+					state[action.payload.cellID] = {
+						loading: false,
+						code: action.payload.code,
+						error: action.payload.error,
+					};
+				}
 			})
 			.addCase(bundleCode.rejected, (state, action: BundleCompleteAction) => {
-				state[action.payload.cellID] = {
-					loading: false,
-					code: "",
-					error: action.payload.bundle.error,
-				};
+				if (action.payload) {
+					state[action.payload.cellID] = {
+						loading: false,
+						code: "",
+						error: action.payload.error,
+					};
+				}
 			});
 	},
 });

@@ -1,23 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 interface StateType {
-    isEditing: boolean;
+	isEditing: boolean;
 }
 
 const initialState: StateType = {
-    isEditing: true,
-}
+	isEditing: true,
+};
 
 const textEditorSlice = createSlice({
-    name: "codeEditor",
-    initialState,
-    reducers: {
-        setEditing: (state, action) => {
-            state.isEditing = action.payload
+	name: "codeEditor",
+	initialState,
+	reducers: {
+		setEditing: (state, action) => {
+			state.isEditing = action.payload;
+		},
+	},
+});
 
-        },
-    }
-})
-
-export default textEditorSlice.reducer
-export const { setEditing } = textEditorSlice.actions
+export default textEditorSlice.reducer;
+export const { setEditing } = textEditorSlice.actions;

@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
 
-export type CellTypes = 'code' | 'text';
-export type CellDirection = 'up' | 'down';
+export type CellTypes = "code" | "text";
+export type CellDirection = "up" | "down";
 
 export interface Cell {
-    id: string;
-    content?: string;
-    type?: CellTypes;
+	id: string;
+	content?: string;
+	type?: CellTypes;
+	editing?: boolean;
 }
-

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { Cell } from "./helpers/cell";
 import {
 	UpdateCellAction,
@@ -65,6 +65,10 @@ const cellsReducer = createSlice({
 				state.order.splice(foundIndex + 1, 0, cell.id);
 			}
 		},
+		setIsEditing: (state, action) => {
+			const { id, isEditing } = action.payload;
+			state.data[id].editing = isEditing;
+		},
 	},
 });
 
@@ -75,4 +79,5 @@ export const {
 	deleteCell,
 	moveCell,
 	insertCellAfter,
+	setIsEditing,
 } = cellsReducer.actions;
