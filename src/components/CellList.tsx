@@ -1,6 +1,7 @@
 import { useAppSelector } from "../state/helpers/hooks";
 import CellListItem from "./CellListItem";
 import AddCell from "./buttons/AddCell";
+import "../styles/cell-list.css";
 
 const CellList: React.FC = () => {
 	const cells = useAppSelector(({ cell: { order, data } }) => {
@@ -18,7 +19,7 @@ const CellList: React.FC = () => {
 	});
 
 	return (
-		<div>
+		<div className='cell-list'>
 			<AddCell prevCellID={null} />
 			{renderedCells}
 		</div>

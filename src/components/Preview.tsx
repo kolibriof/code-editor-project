@@ -17,18 +17,7 @@ const html = `
               document.getElementById("root").style = "color: red; font-size: 20px";
               console.log(error)
         };
-        const show = (arg) => {
-	            if (arg) {
-		              if (typeof arg === "object") {
-			             document.getElementById("root").innerHTML = JSON.stringify(arg)
-		              } else {
-                    document.getElementById("root").innerHTML = arg;
-                  }
-                
-	          } 
-        }
           
-        
           window.addEventListener("error", (e) => {
                 e.preventDefault()
                 handleError(e.error)
@@ -43,7 +32,7 @@ const html = `
         </script>
         <div id="root"></div>
         </body>
-  </html>;`;
+  </html>`;
 
 export const Preview: React.FC<PreviewProps> = ({ code, status }) => {
 	const iRef = useRef<HTMLIFrameElement>(null);

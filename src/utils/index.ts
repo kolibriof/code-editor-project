@@ -21,6 +21,8 @@ export const bundle = async (code: string, id: string) => {
 			bundle: true,
 			write: false,
 			plugins: [unpkgPathPlugin(), fetchPlugin(code)],
+			jsxFactory: "_React.createElement",
+			jsxFragment: "_React.Fragment",
 		});
 
 		return {

@@ -21,9 +21,33 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
 		const codeData = order.map((id) => {
 			return data[id];
 		});
+		const showFunc = `
+		 import _React from "react";
+		 import _ReactDOM from "react-dom";
+
+		 var show = (arg) => {
+	            if (arg) {
+		              if (typeof arg === "object") {
+                    if (arg.$$typeof && arg.props) {
+                      _ReactDOM.createRoot(document.querySelector("#root")).render(arg)        
+                    } else {
+			              document.getElementById("root").innerHTML = JSON.stringify(arg);
+                    }
+		              } else {
+                      document.getElementById("root").innerHTML = arg;
+                  }
+                
+	          } 
+        }`;
+		const showFuncNoop = "var show = () => {}";
 		const cumulativeCode = [];
 		for (let i of codeData) {
 			if (i.type === "code") {
+				if (i.id === cell.id) {
+					cumulativeCode.push(showFunc);
+				} else {
+					cumulativeCode.push(showFuncNoop);
+				}
 				cumulativeCode.push(i.content);
 			}
 			if (i.id === cell.id) {
