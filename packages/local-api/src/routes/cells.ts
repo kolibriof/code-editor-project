@@ -7,6 +7,7 @@ interface Cell {
 	content: string;
 	type: "text" | "code";
 }
+
 interface LocalApiError {
 	code: string;
 }
@@ -14,33 +15,38 @@ interface LocalApiError {
 export const createCellsRouter = (dir: string, filename: string) => {
 	const router = express.Router();
 	router.use(express.json());
+
 	const fullPath = path.join(dir, filename);
 
-	router.get("/cells", async (_, response) => {
-		const isLocalApiError = (error: any): error is LocalApiError => {
-			return typeof error.code === "string";
+	router.get("/cells", async (_, res) => {
+		const isLocalApiError = (err: any): err is LocalApiError => {
+			return typeof err.code === "string";
 		};
+
 		try {
 			const result = await fs.readFile(fullPath, { encoding: "utf-8" });
-			response.send(JSON.parse(result));
-		} catch (error) {
-			if (isLocalApiError(error)) {
-				if (error.code === "ENOENT") {
-					await fs.writeFile(fullPath, "[  ]", "utf-8");
-					response.send([]);
-				} else {
-					throw error;
+			if (result) {
+				res.send(JSON.parse(result));
+			}
+		} catch (err) {
+			if (isLocalApiError(err)) {
+				if (err.code === "ENOENT") {
+					await fs.writeFile(fullPath, "[]", "utf-8");
+					res.send([]);
 				}
 			} else {
-				throw error;
+				throw err;
 			}
 		}
 	});
-	router.post("/cells", async (request, response) => {
-		const { cells }: { cells: Cell[] } = request.body;
+
+	router.post("/cells", async (req, res) => {
+		const { cells }: { cells: Cell[] } = req.body;
 
 		await fs.writeFile(fullPath, JSON.stringify(cells), "utf-8");
-		response.send({ status: "GOOD" });
+
+		res.send({ status: "ok" });
 	});
+
 	return router;
 };

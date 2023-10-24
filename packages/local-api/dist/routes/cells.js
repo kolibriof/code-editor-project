@@ -20,33 +20,32 @@ const createCellsRouter = (dir, filename) => {
     const router = express_1.default.Router();
     router.use(express_1.default.json());
     const fullPath = path_1.default.join(dir, filename);
-    router.get("/cells", (_, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const isLocalApiError = (error) => {
-            return typeof error.code === "string";
+    router.get("/cells", (_, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const isLocalApiError = (err) => {
+            return typeof err.code === "string";
         };
         try {
             const result = yield promises_1.default.readFile(fullPath, { encoding: "utf-8" });
-            response.send(JSON.parse(result));
+            if (result) {
+                res.send(JSON.parse(result));
+            }
         }
-        catch (error) {
-            if (isLocalApiError(error)) {
-                if (error.code === "ENOENT") {
-                    yield promises_1.default.writeFile(fullPath, "[  ]", "utf-8");
-                    response.send([]);
-                }
-                else {
-                    throw error;
+        catch (err) {
+            if (isLocalApiError(err)) {
+                if (err.code === "ENOENT") {
+                    yield promises_1.default.writeFile(fullPath, "[]", "utf-8");
+                    res.send([]);
                 }
             }
             else {
-                throw error;
+                throw err;
             }
         }
     }));
-    router.post("/cells", (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { cells } = request.body;
+    router.post("/cells", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const { cells } = req.body;
         yield promises_1.default.writeFile(fullPath, JSON.stringify(cells), "utf-8");
-        response.send({ status: "GOOD" });
+        res.send({ status: "ok" });
     }));
     return router;
 };

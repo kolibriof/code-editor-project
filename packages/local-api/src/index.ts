@@ -11,6 +11,7 @@ export const execCommand = (
 ) => {
 	const app = express();
 	const packagePath = require.resolve("code-editor/build/index.html");
+	app.use(createCellsRouter(dir, filename));
 	if (useProxy) {
 		app.use(
 			createProxyMiddleware({
@@ -22,7 +23,6 @@ export const execCommand = (
 	} else {
 		app.use(express.static(path.dirname(packagePath)));
 	}
-	app.use(createCellsRouter(dir, filename));
 	return new Promise<void>((resolve, reject) => {
 		app.listen(port, resolve).on("error", reject);
 	});
