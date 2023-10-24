@@ -16,17 +16,18 @@ exports.exec = void 0;
 const commander_1 = require("commander");
 const local_api_1 = require("local-api");
 const path_1 = __importDefault(require("path"));
+const isProduction = process.env.NODE_ENV === "production";
 exports.exec = new commander_1.Command()
     .command("exec [filename]")
     .description("Open a file for editing")
-    .option("-p, --port <number>", "port to run server on", "4005")
+    .option("-p, --port <number>", "port to run server on", "4000")
     .action((filename = "notebook.js", options) => __awaiter(void 0, void 0, void 0, function* () {
     const isLocalApiError = (err) => {
         return typeof err.code === "string";
     };
     try {
         const dir = path_1.default.join(process.cwd(), path_1.default.dirname(filename));
-        yield (0, local_api_1.execCommand)(parseInt(options.port), filename, dir);
+        yield (0, local_api_1.execCommand)(parseInt(options.port), filename, dir, !isProduction);
         console.log(`Opened ${filename}. Navigate to http://localhost:${options.port} to edit the file.`);
     }
     catch (error) {
