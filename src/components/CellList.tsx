@@ -2,6 +2,16 @@ import { useAppSelector } from "../state/helpers/hooks";
 import CellListItem from "./CellListItem";
 import AddCell from "./buttons/AddCell";
 import "../styles/cell-list.css";
+import {
+	deleteCell,
+	fetchCells,
+	insertCellAfter,
+	moveCell,
+	saveCells,
+	updateCell,
+} from "../state/cellsReducer";
+import { useAppDispatch } from "../state/helpers/hooks";
+import { useEffect } from "react";
 
 const CellList: React.FC = () => {
 	const cells = useAppSelector(({ cell: { order, data } }) => {
@@ -9,6 +19,13 @@ const CellList: React.FC = () => {
 			return data[id];
 		});
 	});
+	const dispatch = useAppDispatch();
+	useEffect(() => {
+		dispatch(fetchCells());
+	}, []);
+	useEffect(() => {
+		dispatch(saveCells());
+	}, []);
 	const renderedCells = cells.map((cell) => {
 		return (
 			<div key={cell.id}>

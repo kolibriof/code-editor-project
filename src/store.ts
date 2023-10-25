@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import codeCellSlice from "./state/codeCellSlice";
 import textEditorSlice from "./state/textEditorSlice";
-import cellsReducer, { insertCellAfter } from "./state/cellsReducer";
+import cellsReducer from "./state/cellsReducer";
 import bundleReducer from "./state/bundlesReducer";
+import { persistMiddleware } from "./state/middlewares/persist-middleware";
 
 export const store = configureStore({
 	reducer: {
@@ -11,10 +12,10 @@ export const store = configureStore({
 		cell: cellsReducer,
 		bundle: bundleReducer,
 	},
+	middleware(getDefaultMiddleware) {
+		return getDefaultMiddleware().concat(persistMiddleware);
+	},
 });
-
-store.dispatch(insertCellAfter({ id: null, type: "code" }));
-store.dispatch(insertCellAfter({ id: null, type: "text" }));
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

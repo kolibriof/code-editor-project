@@ -9,8 +9,6 @@ const App = () => {
 	return (
 		<Provider store={store}>
 			<div>
-				{/* <TextEditor /> */}
-				{/* <CodeCell /> */}
 				<CellList />
 			</div>
 		</Provider>
